@@ -1,8 +1,11 @@
 from pathlib import Path
 from typing import List, Any
 from langchain_community.document_loaders import PyMuPDFLoader
+from src.config_loader import load_config
 
-def load_documents(data_dir: str) -> List[Any]:
+config = load_config()
+
+def load_documents(data_dir: str = config['DATA_PATHS']['DATA_DIR']) -> List[Any]:
     
     data_path = Path(data_dir).resolve()
     print(f'[DEBUG] Data path: {data_path}')
@@ -21,6 +24,3 @@ def load_documents(data_dir: str) -> List[Any]:
             print(f'[ERROR] Failed to load PDF {pdf_file}: {e}')
     
     return documents
-
-if __name__ == '__main__':
-    docs = load_documents('./rag_tutorial/data/pdfs')

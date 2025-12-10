@@ -3,10 +3,13 @@ import uuid
 import chromadb
 import numpy as np
 from typing import List, Any
+from src.config_loader import load_config
+
+config = load_config()
 
 class ChromaVectorStore:
     
-    def __init__(self, collection_name: str = 'HP_Books', persist_directory: str = './data/vector_store'):
+    def __init__(self, collection_name: str = config['DATA_PATHS']['COLLECTION_NAME'], persist_directory: str = config['DATA_PATHS']['VECTOR_STORE_DIR']):
         self.collection_name = collection_name
         self.persist_directory = persist_directory
         self.client = None

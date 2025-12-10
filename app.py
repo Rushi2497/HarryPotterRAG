@@ -1,3 +1,4 @@
+# from src.config_loader import load_config
 # import numpy as np
 # from src.load import load_documents
 # from src.embed import EmbeddingPipeline
@@ -6,14 +7,15 @@ from src.generate import RAGPipeline
 
 if __name__ == '__main__':
     
-    # documents = load_documents(data_dir='./data/pdfs')
-    # embedding_pipeline = EmbeddingPipeline(chunk_size=500, chunk_overlap=100)
+    # config = load_config()
+    # documents = load_documents(data_dir=config['DATA_PATHS']['DATA_DIR'])
+    # embedding_pipeline = EmbeddingPipeline()
     # chunks = embedding_pipeline.chunk_documents(documents)
     # embeddings = embedding_pipeline.embed_chunks(chunks)
-    # np.savez('./rag_tutorial/data/embeddings_onebook_1000',embeddings)
+    # np.savez('./data/embeddings_minilm_500_tokens',embeddings)
     # embeddings = np.load('./data/embeddings_minilm_500_tokens.npz')['arr_0']
     # vector_store = ChromaVectorStore()
-    # vector_store.client.delete_collection(name='HP_Books')
+    # vector_store.client.delete_collection(name=config['DATA_PATHS']['COLLECTION_NAME'])
     # vector_store.add_documents(documents=chunks, embeddings=embeddings)
 
     user_query = input("Write your query: ")

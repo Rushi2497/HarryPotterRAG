@@ -3,9 +3,12 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_ollama.embeddings import OllamaEmbeddings
 from transformers import AutoTokenizer
 import numpy as np
+from src.config_loader import load_config
+
+config = load_config()
 
 class EmbeddingPipeline:
-    def __init__(self, model_name: str = 'all-minilm:latest', chunk_size: int = 500, chunk_overlap: int = 100):
+    def __init__(self, model_name: str = config['RAG_MODELS']['EMBEDDING_MODEL'], chunk_size: int = config['CHUNKING_PARAMS']['CHUNK_SIZE'], chunk_overlap: int = config['CHUNKING_PARAMS']['CHUNK_OVERLAP']):
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
         self.model = OllamaEmbeddings(model=model_name, num_ctx=512)
@@ -13,7 +16,7 @@ class EmbeddingPipeline:
     
     def chunk_documents(self, documents: List[Any]) -> List[Any]:
 
-        tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2", local_files_only=True)
+        tokenizer = AutoTokenizer.from_pretrained(config['RAG_MODELS']['TOKENIZER_MODEL'], local_files_only=True)
         token_length_function = lambda text: len(tokenizer.encode(text))
 
         splitter = RecursiveCharacterTextSplitter(
