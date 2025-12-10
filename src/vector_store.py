@@ -8,7 +8,7 @@ from sentence_transformers.cross_encoder import CrossEncoder
 
 class ChromaVectorStore:
     
-    def __init__(self, collection_name: str = 'HP_Books', persist_directory: str = './rag_tutorial/data/vector_store'):
+    def __init__(self, collection_name: str = 'HP_Books', persist_directory: str = './data/vector_store'):
         self.collection_name = collection_name
         self.persist_directory = persist_directory
         self.client = None
