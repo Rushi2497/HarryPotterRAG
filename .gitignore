@@ -1,2 +1,6 @@
-# Environment
+# Environments and cache
 .venv/
+src/__pycache__
+
+# Files
+data/
