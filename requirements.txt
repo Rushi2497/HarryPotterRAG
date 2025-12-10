@@ -5,7 +5,7 @@ seaborn
 ipykernel
 ollama
 chromadb
-pypdf
+pymupdf
 sentence-transformers
 hf-xet
 langchain
