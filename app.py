@@ -1,8 +1,8 @@
 # import numpy as np
-# from src.data_loader import load_documents
-# from src.embedding import EmbeddingPipeline
-# from src.vector_store import ChromaVectorStore
-from src.search import RAGPipeline
+# from src.load import load_documents
+# from src.embed import EmbeddingPipeline
+# from src.vectorstore import ChromaVectorStore
+from src.generate import RAGPipeline
 
 if __name__ == '__main__':
     
