@@ -13,7 +13,7 @@ class EmbeddingPipeline:
     
     def chunk_documents(self, documents: List[Any]) -> List[Any]:
 
-        tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
+        tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2", local_files_only=True)
         token_length_function = lambda text: len(tokenizer.encode(text))
 
         splitter = RecursiveCharacterTextSplitter(

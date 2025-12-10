@@ -1,11 +1,21 @@
 from typing import Any, Dict
-from src.vector_store import ChromaVectorStore
+from src.embed import EmbeddingPipeline
+from src.vectorstore import ChromaVectorStore
+from sentence_transformers.cross_encoder import CrossEncoder
+from src.retrieve import RAGRetriever
 from langchain_ollama.chat_models import ChatOllama
 
 class RAGPipeline:
 
     def __init__(self, llm_model='mistral:latest'):
-        self.retriever = ChromaVectorStore()
+        self.embedding_pipeline = EmbeddingPipeline()
+        self.vector_store = ChromaVectorStore()
+        self.reranker = CrossEncoder(model_name_or_path="cross-encoder/ms-marco-MiniLM-L6-v2", local_files_only=True)
+        self.retriever = RAGRetriever(
+            vector_store=self.vector_store,
+            embedding_pipeline=self.embedding_pipeline,
+            reranker=self.reranker
+        )
         self.llm = ChatOllama(model=llm_model, temperature=1, num_predict=1024)
 
     def query(self, question: str, top_k: int = 50, rerank: bool = True, top_n: int = 10, min_score: float = 0.0, with_citations: bool = False, summarize: bool = False) -> Dict[str, Any]:
