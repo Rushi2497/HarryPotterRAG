@@ -16,7 +16,9 @@ if __name__ == '__main__':
     # vector_store.client.delete_collection(name='HP_Books')
     # vector_store.add_documents(documents=chunks, embeddings=embeddings)
 
-    answer = RAGPipeline().query(question="What was Marauder's Map and who created it?",
+    user_query = input("Write your query: ")
+
+    answer = RAGPipeline().query(question=user_query,
                                  top_k=50,
                                  rerank=True,
                                  top_n=10,
