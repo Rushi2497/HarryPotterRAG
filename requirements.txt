@@ -3,6 +3,7 @@ pandas
 matplotlib
 seaborn
 ipykernel
+ipywidgets
 ollama
 chromadb
 pymupdf
