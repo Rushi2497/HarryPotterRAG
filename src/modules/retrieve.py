@@ -1,6 +1,6 @@
 from typing import List, Any, Dict
-from src.vectorstore import ChromaVectorStore
-from src.embed import EmbeddingPipeline
+from src.modules.vectorstore import ChromaVectorStore
+from src.modules.embed import EmbeddingPipeline
 from sentence_transformers.cross_encoder import CrossEncoder
 
 class RAGRetriever:
@@ -12,7 +12,7 @@ class RAGRetriever:
 
     def retrieve(self, query: str, top_k: int = 50, rerank: bool = True, top_n: int = 10, score_threshold: float = -1.0) -> List[Dict[str, Any]]:
         print(f'[INFO] Retrieving documents for query: {query}')
-        print(f'Top K: {top_k}, Top N: {top_n if rerank else 'No Reranking'}, Score threshold: {score_threshold}')
+        print(f'[PARAMETERS] Top K: {top_k}, Top N: {top_n if rerank else 'No Reranking'}, Score threshold: {score_threshold}')
 
         query_embedding = self.embedding_pipeline.embed_chunks([query])[0]
 
@@ -53,10 +53,10 @@ class RAGRetriever:
                         'rerank_score': rerank_score,
                         'rank': i + 1
                     })
-            print(f'Retrieved {len(retrieved_docs)} documents (after filtering)')
+            print(f'[INFO] Retrieved {len(retrieved_docs)} documents (after filtering)')
             
             return retrieved_docs
         
         except Exception as e:
-            print(f'Error during retrievel: {e}')
+            print(f'[ERROR] Error during retrievel: {e}')
             return []

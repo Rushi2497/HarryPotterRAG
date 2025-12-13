@@ -25,11 +25,11 @@ class ChromaVectorStore:
                 name=self.collection_name,
                 metadata={'description':'Harry Potter book embeddings for RAG'}
             )
-            print(f'Vector store initialized. Collection: {self.collection_name}')
-            print(f'Existing documents in collection: {self.collection.count()}')
+            print(f'[INFO] Vector store initialized. Collection: {self.collection_name}')
+            print(f'[INFO] Existing documents in collection: {self.collection.count()}')
 
         except Exception as e:
-            print(f'Error initializing vector store: {e}')
+            print(f'[ERROR] Error initializing vector store: {e}')
             raise
 
     def add_documents(self, documents: List[Any], embeddings: np.ndarray):
@@ -75,8 +75,8 @@ class ChromaVectorStore:
                     documents=batch_docs
                 )
 
-            print(f'Sucessfully added {len(documents)} documents to vector store')
-            print(f'Total documents in collection: {self.collection.count()}')
+            print(f'[INFO] Sucessfully added {len(documents)} documents to vector store')
+            print(f'[INFO] Total documents in collection: {self.collection.count()}')
         except Exception as e:
-            print(f'Error adding documents to vector store: {e}')
+            print(f'[ERROR] Error adding documents to vector store: {e}')
             raise

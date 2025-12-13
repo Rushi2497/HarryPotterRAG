@@ -1,8 +1,8 @@
 from typing import Any, Dict
-from src.embed import EmbeddingPipeline
-from src.vectorstore import ChromaVectorStore
+from src.modules.embed import EmbeddingPipeline
+from src.modules.vectorstore import ChromaVectorStore
 from sentence_transformers.cross_encoder import CrossEncoder
-from src.retrieve import RAGRetriever
+from src.modules.retrieve import RAGRetriever
 from langchain_ollama.chat_models import ChatOllama
 from src.config_loader import load_config
 
@@ -36,7 +36,7 @@ class RAGPipeline:
                 'rerank_score': doc['rerank_score']
             } for doc in results]
 
-            prompt = """Answer the following question consisely by strictly using the provided context.\nQuestion: {question}\n\nContext:\n\n{context}\n\nAnswer:"""
+            prompt = """Answer the following question by strictly using the provided context.\nQuestion: {question}\n\nContext:\n\n{context}\n\nAnswer:"""
             response = self.llm.invoke([prompt.format(context=context, question=question)])
             answer = response.content
 
