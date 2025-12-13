@@ -5,7 +5,7 @@ CHUNKING_PARAMS:
 DATA_PATHS:
   DATA_DIR: "./data/pdfs"
   VECTOR_STORE_DIR: "./data/vector_store"
-  COLLECTION_NAME: "HP_Books"
+  COLLECTION_NAME: "HP_Books_Main"
 
 RAG_MODELS:
   LLM_MODEL: "mistral:latest"
