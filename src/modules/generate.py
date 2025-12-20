@@ -1,9 +1,11 @@
+import os
+from dotenv import load_dotenv
 from typing import Any, Dict
 from src.modules.embed import EmbeddingPipeline
 from src.modules.vectorstore import ChromaVectorStore
 from sentence_transformers.cross_encoder import CrossEncoder
 from src.modules.retrieve import RAGRetriever
-from langchain_ollama.chat_models import ChatOllama
+from langchain_groq.chat_models import ChatGroq
 from src.config_loader import load_config
 
 config = load_config()
@@ -19,7 +21,8 @@ class RAGPipeline:
             embedding_pipeline=self.embedding_pipeline,
             reranker=self.reranker
         )
-        self.llm = ChatOllama(model=llm_model, temperature=1, num_predict=1024)
+        _ = load_dotenv()
+        self.llm = ChatGroq(model=llm_model, temperature=1, api_key=os.getenv("GROQ_API_KEY"))
 
     def query(self, question: str, top_k: int = 50, rerank: bool = True, top_n: int = 10, min_score: float = 0.0, with_citations: bool = False, summarize: bool = False) -> Dict[str, Any]:
         results = self.retriever.retrieve(question, top_k=top_k, rerank=rerank, top_n=top_n, score_threshold=min_score)
