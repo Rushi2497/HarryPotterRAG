@@ -1,11 +1,14 @@
 from typing import List, Any, Dict
 from src.modules.vectorstore import ChromaVectorStore
 from src.modules.embed import EmbeddingPipeline
-from sentence_transformers.cross_encoder import CrossEncoder
+from voyageai import Client
+from src.config_loader import load_config
+
+config = load_config()
 
 class RAGRetriever:
 
-    def __init__(self, vector_store: ChromaVectorStore, embedding_pipeline: EmbeddingPipeline, reranker: CrossEncoder):
+    def __init__(self, vector_store: ChromaVectorStore, embedding_pipeline: EmbeddingPipeline, reranker: Client):
         self.vector_store = vector_store
         self.embedding_pipeline = embedding_pipeline
         self.reranker = reranker
@@ -34,8 +37,8 @@ class RAGRetriever:
             ids = results['ids'][0]
 
             if rerank:
-                query_doc_pairs = [(query, doc) for doc in documents]
-                scores = self.reranker.predict(sentences=query_doc_pairs)
+                resp = self.reranker.rerank(query=query, documents=documents, model=config['RAG_MODELS']['RERANKER_MODEL']).results
+                scores =[item.relevance_score for item in resp]
                 res = sorted(zip(ids, documents, metadatas, distances, scores), key=lambda x: x[4], reverse=True)[:top_n]
             else:
                 norerank = [None]*len(ids)

@@ -9,6 +9,6 @@ DATA_PATHS:
 
 RAG_MODELS:
   LLM_MODEL: "openai/gpt-oss-120b"
-  EMBEDDING_MODEL: "all-minilm:latest"
-  TOKENIZER_MODEL: "sentence-transformers/all-MiniLM-L6-v2"
-  RERANKER_MODEL: "cross-encoder/ms-marco-MiniLM-L6-v2"
+  EMBEDDING_MODEL: "voyage-3-large"
+  TOKENIZER_MODEL: "voyage-3-large"
+  RERANKER_MODEL: "rerank-2.5"

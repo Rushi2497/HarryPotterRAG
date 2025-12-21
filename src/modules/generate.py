@@ -2,7 +2,7 @@ import os
 from typing import Any, Dict
 from src.modules.embed import EmbeddingPipeline
 from src.modules.vectorstore import ChromaVectorStore
-from sentence_transformers.cross_encoder import CrossEncoder
+from voyageai import Client
 from src.modules.retrieve import RAGRetriever
 from groq import Groq
 from src.config_loader import load_config
@@ -14,7 +14,7 @@ class RAGPipeline:
     def __init__(self, llm_model=config['RAG_MODELS']['LLM_MODEL']):
         self.embedding_pipeline = EmbeddingPipeline()
         self.vector_store = ChromaVectorStore()
-        self.reranker = CrossEncoder(model_name_or_path=config['RAG_MODELS']['RERANKER_MODEL'], local_files_only=True)
+        self.reranker = Client(api_key=os.getenv('VOYAGEAI_API_KEY'))
         self.retriever = RAGRetriever(
             vector_store=self.vector_store,
             embedding_pipeline=self.embedding_pipeline,
