@@ -1,4 +1,7 @@
+from dotenv import load_dotenv
 from src.modules.generate import RAGPipeline
+
+load_dotenv()
 
 if __name__ == '__main__':
 

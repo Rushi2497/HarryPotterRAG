@@ -12,5 +12,5 @@ hf-xet
 langchain
 langchain-community
 langchain-core
-langchain-ollama
-langchain-chroma
+groq
+voyageai
