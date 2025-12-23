@@ -11,4 +11,4 @@ A RAG application for queries based on the Harry Potter Series by J.K. Rowling
 * Stage2 - Reranking using cross encoder (voyage rerank-2.5)
 
 ## Generation:
-Mistral 7B used for generating responses
+openai/gpt-oss-120b used for generating responses
